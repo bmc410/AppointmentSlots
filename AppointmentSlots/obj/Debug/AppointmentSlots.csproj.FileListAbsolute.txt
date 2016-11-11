@@ -1,0 +1,8 @@
+C:\Dev\AppointmentSlots\AppointmentSlots\bin\Debug\AppointmentSlots.exe.config
+C:\Dev\AppointmentSlots\AppointmentSlots\bin\Debug\AppointmentSlots.exe
+C:\Dev\AppointmentSlots\AppointmentSlots\bin\Debug\AppointmentSlots.pdb
+C:\Dev\AppointmentSlots\AppointmentSlots\bin\Debug\EntityFramework.dll
+C:\Dev\AppointmentSlots\AppointmentSlots\bin\Debug\EntityFramework.xml
+C:\Dev\AppointmentSlots\AppointmentSlots\obj\Debug\AppointmentSlots.csprojResolveAssemblyReference.cache
+C:\Dev\AppointmentSlots\AppointmentSlots\obj\Debug\AppointmentSlots.exe
+C:\Dev\AppointmentSlots\AppointmentSlots\obj\Debug\AppointmentSlots.pdb

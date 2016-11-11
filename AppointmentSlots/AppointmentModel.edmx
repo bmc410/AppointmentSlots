@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SlotsTableModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_GetAppointmentsByDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AppointmentsDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_GetAppointmentSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="time" Mode="In" />
+          <Parameter Name="end" Type="time" Mode="In" />
+          <Parameter Name="slot" Type="int" Mode="In" />
+          <Parameter Name="SlotDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_GetApptTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetAvailability" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetExceptionTimes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SlotsTableModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SlotsTableModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SlotsTableEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_GetAppointmentsByDay" ReturnType="Collection(SlotsTableModel.usp_GetAppointmentsByDay_Result)">
+          <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAppointmentSlots" ReturnType="Collection(SlotsTableModel.usp_GetAppointmentSlots_Result1)">
+            <Parameter Name="start" Mode="In" Type="Time" />
+            <Parameter Name="end" Mode="In" Type="Time" />
+            <Parameter Name="slot" Mode="In" Type="Int32" />
+            <Parameter Name="SlotDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(SlotsTableModel.usp_GetApptTypes_Result)" />
+          <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(SlotsTableModel.usp_GetAvailability_Result)" />
+          <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(SlotsTableModel.usp_GetExceptionTimes_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetAppointmentsByDay_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAppointmentSlots_Result">
+          <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="slots" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAppointmentSlots_Result1">
+          <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+          <Property Type="String" Name="slots" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="usp_GetApptTypes_Result">
+          <Property Type="Int32" Name="ApptTypeId" Nullable="false" />
+          <Property Type="String" Name="ApptType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApptDescription" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ApptLength" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAvailability_Result">
+          <Property Type="Int32" Name="AvailabilityId" Nullable="false" />
+          <Property Type="DateTime" Name="StartDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DayOfWeek" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetExceptionTimes_Result">
+          <Property Type="Int32" Name="ExceptionId" Nullable="false" />
+          <Property Type="DateTime" Name="ExceptionStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SlotsTableModelStoreContainer" CdmEntityContainer="SlotsTableEntities" >
+          <FunctionImportMapping FunctionImportName="usp_GetAppointmentsByDay" FunctionName="SlotsTableModel.Store.usp_GetAppointmentsByDay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetAppointmentsByDay_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAppointmentSlots" FunctionName="SlotsTableModel.Store.usp_GetAppointmentSlots">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetAppointmentSlots_Result1">
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="end" ColumnName="end" />
+                <ScalarProperty Name="slots" ColumnName="slots" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetApptTypes" FunctionName="SlotsTableModel.Store.usp_GetApptTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetApptTypes_Result">
+                <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
+                <ScalarProperty Name="ApptType" ColumnName="ApptType" />
+                <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
+                <ScalarProperty Name="ApptLength" ColumnName="ApptLength" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAvailability" FunctionName="SlotsTableModel.Store.usp_GetAvailability">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetAvailability_Result">
+                <ScalarProperty Name="AvailabilityId" ColumnName="AvailabilityId" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetExceptionTimes" FunctionName="SlotsTableModel.Store.usp_GetExceptionTimes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetExceptionTimes_Result">
+                <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+                <ScalarProperty Name="ExceptionStartDate" ColumnName="ExceptionStartDate" />
+                <ScalarProperty Name="ExceptionEndDate" ColumnName="ExceptionEndDate" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
