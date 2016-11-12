@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SlotsTableModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SlotsTableEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="usp_GetAppointmentsByDay" ReturnType="Collection(SlotsTableModel.usp_GetAppointmentsByDay_Result)">
+      <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetAppointmentSlots" ReturnType="Collection(SlotsTableModel.usp_GetAppointmentSlots_Result1)">
+      <Parameter Name="start" Mode="In" Type="Time" />
+      <Parameter Name="end" Mode="In" Type="Time" />
+      <Parameter Name="slot" Mode="In" Type="Int32" />
+      <Parameter Name="SlotDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(SlotsTableModel.usp_GetApptTypes_Result)" />
+    <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(SlotsTableModel.usp_GetAvailability_Result)" />
+    <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(SlotsTableModel.usp_GetExceptionTimes_Result)" />
+  </EntityContainer>
+  <ComplexType Name="usp_GetAppointmentsByDay_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAppointmentSlots_Result">
+    <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="slots" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAppointmentSlots_Result1">
+    <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+    <Property Type="String" Name="slots" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="usp_GetApptTypes_Result">
+    <Property Type="Int32" Name="ApptTypeId" Nullable="false" />
+    <Property Type="String" Name="ApptType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApptDescription" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="ApptLength" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAvailability_Result">
+    <Property Type="Int32" Name="AvailabilityId" Nullable="false" />
+    <Property Type="DateTime" Name="StartDateTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDateTime" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="DayOfWeek" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetExceptionTimes_Result">
+    <Property Type="Int32" Name="ExceptionId" Nullable="false" />
+    <Property Type="DateTime" Name="ExceptionStartDate" Nullable="true" />
+    <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
+  </ComplexType>
+</Schema>
