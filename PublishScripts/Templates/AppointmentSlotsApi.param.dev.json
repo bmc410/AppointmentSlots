@@ -1,0 +1,29 @@
+{
+  "siteName": {
+    "value": "AppointmentSlotsApi"
+  },
+  "hostingPlanName": {
+    "value": "AppointmentSlotsApi"
+  },
+  "siteLocation": {
+    "value": "East US"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "siteMode": {
+    "value": "Limited"
+  },
+  "computeMode": {
+    "value": "0"
+  },
+  "subscriptionId": {
+    "value": "8adc3eb5-48d8-4f08-a0c9-f2dfcc07aed6"
+  },
+  "resourceGroup": {
+    "value": "bmc410"
+  }
+}
