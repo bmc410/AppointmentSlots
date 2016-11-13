@@ -8,9 +8,9 @@
         <EntityTypeShape EntityType="ApptModel.Appointment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ApptModel.AppointmentType" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ApptModel.Availability" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApptModel.Customer" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ApptModel.ExceptionDate" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ApptModel.Slot" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApptModel.Customer" Width="1.5" PointX="2.75" PointY="3.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

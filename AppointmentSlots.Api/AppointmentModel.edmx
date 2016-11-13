@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ApptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ApptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointments">
           <Key>
             <PropertyRef Name="ApptId" />
@@ -13,6 +13,8 @@
           <Property Name="StartDateTime" Type="datetime" />
           <Property Name="EndDateTime" Type="datetime" />
           <Property Name="AppointmentType" Type="int" />
+          <Property Name="CustId" Type="int" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AppointmentTypes">
           <Key>
@@ -39,9 +41,12 @@
           <Property Name="CustId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varbinary" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="150" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
           <Property Name="LastModified" Type="datetime" />
+          <Property Name="IsRegistered" Type="bit" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ExceptionDates">
           <Key>
@@ -81,8 +86,7 @@
           <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slots" EntityType="Self.Slots" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -94,6 +98,8 @@
           <Property Name="StartDateTime" Type="DateTime" Precision="3" />
           <Property Name="EndDateTime" Type="DateTime" Precision="3" />
           <Property Name="AppointmentType" Type="Int32" />
+          <Property Name="CustId" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AppointmentType">
           <Key>
@@ -112,17 +118,6 @@
           <Property Name="StartDateTime" Type="DateTime" Precision="3" />
           <Property Name="EndDateTime" Type="DateTime" Precision="3" />
           <Property Name="DayOfWeek" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="CustId" />
-          </Key>
-          <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="Binary" MaxLength="150" FixedLength="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastModified" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ExceptionDate">
           <Key>
@@ -146,11 +141,10 @@
           <EntitySet Name="Appointments" EntityType="Self.Appointment" />
           <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentType" />
           <EntitySet Name="Availabilities" EntityType="Self.Availability" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDate" />
           <EntitySet Name="Slots" EntityType="Self.Slot" />
           <FunctionImport Name="usp_GetAppointmentsByDay" ReturnType="Collection(ApptModel.usp_GetAppointmentsByDay_Result)">
-            <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+          <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAppointmentSlots" ReturnType="Collection(ApptModel.usp_GetAppointmentSlots_Result)">
             <Parameter Name="start" Mode="In" Type="Time" />
@@ -161,6 +155,7 @@
           <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(ApptModel.usp_GetApptTypes_Result)" />
           <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(ApptModel.usp_GetAvailability_Result)" />
           <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(ApptModel.usp_GetExceptionTimes_Result)" />
+          <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
         </EntityContainer>
         <ComplexType Name="usp_GetAppointmentsByDay_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -191,6 +186,20 @@
           <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="IsRegistered" Type="Boolean" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -200,6 +209,8 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="ApptModel.Appointment">
               <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
                 <ScalarProperty Name="ApptId" ColumnName="ApptId" />
                 <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
                 <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
@@ -224,18 +235,6 @@
                 <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
                 <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
                 <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="ApptModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="CustId" ColumnName="CustId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -308,6 +307,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ApptModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

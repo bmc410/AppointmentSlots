@@ -4,6 +4,8 @@
     <EntitySetMapping Name="Appointments">
       <EntityTypeMapping TypeName="ApptModel.Appointment">
         <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
           <ScalarProperty Name="ApptId" ColumnName="ApptId" />
           <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
           <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
@@ -28,18 +30,6 @@
           <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
           <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
           <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="ApptModel.Customer">
-        <MappingFragment StoreEntitySet="Customers">
-          <ScalarProperty Name="CustId" ColumnName="CustId" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -112,5 +102,20 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="ApptModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

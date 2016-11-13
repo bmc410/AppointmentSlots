@@ -248,6 +248,8 @@
     <Compile Include="Models\ApptAvailability.cs" />
     <Compile Include="Models\ApptException.cs" />
     <Compile Include="Models\ApptModel.cs" />
+    <Compile Include="Models\ApptRequest.cs" />
+    <Compile Include="Models\CustomerRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SlotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

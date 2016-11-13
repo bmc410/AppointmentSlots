@@ -18,5 +18,7 @@ namespace AppointmentSlots.Api
         public Nullable<System.DateTime> StartDateTime { get; set; }
         public Nullable<System.DateTime> EndDateTime { get; set; }
         public Nullable<int> AppointmentType { get; set; }
+        public Nullable<int> CustId { get; set; }
+        public string Comment { get; set; }
     }
 }

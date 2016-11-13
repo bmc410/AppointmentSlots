@@ -43,6 +43,45 @@ namespace AppointmentSlots.Api.Controllers
             appointmentTypes = GetApptTypes();
         }
 
+        public int CreateCustomer(CustomerRequest request)
+        {
+            using (ApptEntities db = new ApptEntities())
+            {
+                Customer cust = new Customer
+                {
+                     Email = request.Email,
+                     FirstName = request.FirstName,
+                     LastName = request.LastName,
+                     Password = request.Password,
+                     Phone = request.Phone,
+                     UserName = request.UserName,
+                     IsRegistered = request.UserName != null && request.Password != null? true:false
+                         
+                };
+                db.Customers.Add(cust);
+                db.Entry(cust).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+
+                return cust.CustId;
+            }
+        }
+
+        public int ScheduleAppointment(ApptRequest request)
+        {
+            using (ApptEntities db = new ApptEntities())
+            {
+                Appointment appt = new Appointment
+                {
+                    AppointmentType = request.AppointmentType,
+                    StartDateTime = request.StartDateTime,
+                    EndDateTime = request.EndDateTime,
+                    Comment = request.Comment,
+                    CustId = request.CustId
+                };
+                return 0;
+            }
+        }
+
         // GET api/Appointment/GetSlots/30
         public List<SlotModel> GetSlots(int duration)
         {

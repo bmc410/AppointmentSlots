@@ -8,6 +8,8 @@
     <Property Name="StartDateTime" Type="datetime" />
     <Property Name="EndDateTime" Type="datetime" />
     <Property Name="AppointmentType" Type="int" />
+    <Property Name="CustId" Type="int" />
+    <Property Name="Comment" Type="varchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="AppointmentTypes">
     <Key>
@@ -34,9 +36,12 @@
     <Property Name="CustId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" />
     <Property Name="LastName" Type="varchar" MaxLength="50" />
-    <Property Name="Email" Type="varbinary" MaxLength="150" />
+    <Property Name="Email" Type="varchar" MaxLength="150" />
     <Property Name="Phone" Type="varchar" MaxLength="50" />
     <Property Name="LastModified" Type="datetime" />
+    <Property Name="IsRegistered" Type="bit" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ExceptionDates">
     <Key>
