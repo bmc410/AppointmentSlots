@@ -50,5 +50,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetAppointmentsByMonth" FunctionName="SlotsTableModel.Store.usp_GetAppointmentsByMonth">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SlotsTableModel.usp_GetAppointmentsByMonth_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

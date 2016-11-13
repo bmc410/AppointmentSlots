@@ -3,6 +3,10 @@
   <Function Name="usp_GetAppointmentsByDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="AppointmentsDate" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="usp_GetAppointmentsByMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AppointmentsDate" Type="datetime" Mode="In" />
+    <Parameter Name="AppointmentMonths" Type="int" Mode="In" />
+  </Function>
   <Function Name="usp_GetAppointmentSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="start" Type="time" Mode="In" />
     <Parameter Name="end" Type="time" Mode="In" />

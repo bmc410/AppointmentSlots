@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -171,6 +172,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Appointment.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppointmentModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppointmentModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppointmentModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppointmentModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppointmentModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="AppointmentType.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -205,21 +227,63 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Availability.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionDate.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApptAvailability.cs" />
+    <Compile Include="Models\ApptException.cs" />
+    <Compile Include="Models\ApptModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SlotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Slot.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="usp_GetAppointmentsByDay_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAppointmentSlots_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetApptTypes_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetAvailability_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetExceptionTimes_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppointmentModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AppointmentModel.edmx</DependentUpon>
+      <LastGenOutput>AppointmentModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="AppointmentModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AppointmentModel.edmx</DependentUpon>
+      <LastGenOutput>AppointmentModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -247,6 +311,13 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="AppointmentModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AppointmentModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="AppointmentModel.edmx.diagram">
+      <DependentUpon>AppointmentModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\AppointmentSlotsApi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -285,6 +356,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

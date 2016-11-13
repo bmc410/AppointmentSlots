@@ -13,6 +13,10 @@
     <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(SlotsTableModel.usp_GetApptTypes_Result)" />
     <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(SlotsTableModel.usp_GetAvailability_Result)" />
     <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(SlotsTableModel.usp_GetExceptionTimes_Result)" />
+    <FunctionImport Name="usp_GetAppointmentsByMonth" ReturnType="Collection(SlotsTableModel.usp_GetAppointmentsByMonth_Result)">
+      <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+      <Parameter Name="AppointmentMonths" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="usp_GetAppointmentsByDay_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -47,5 +51,11 @@
     <Property Type="DateTime" Name="ExceptionStartDate" Nullable="true" />
     <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
     <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAppointmentsByMonth_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
   </ComplexType>
 </Schema>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ApptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="ApptId" />
+    </Key>
+    <Property Name="ApptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartDateTime" Type="datetime" />
+    <Property Name="EndDateTime" Type="datetime" />
+    <Property Name="AppointmentType" Type="int" />
+  </EntityType>
+  <EntityType Name="AppointmentTypes">
+    <Key>
+      <PropertyRef Name="ApptTypeId" />
+    </Key>
+    <Property Name="ApptTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApptType" Type="varchar" MaxLength="50" />
+    <Property Name="ApptDescription" Type="varchar" MaxLength="250" />
+    <Property Name="ApptLength" Type="int" />
+  </EntityType>
+  <EntityType Name="Availability">
+    <Key>
+      <PropertyRef Name="AvailabilityId" />
+    </Key>
+    <Property Name="AvailabilityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartDateTime" Type="datetime" />
+    <Property Name="EndDateTime" Type="datetime" />
+    <Property Name="DayOfWeek" Type="int" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="CustId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varbinary" MaxLength="150" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="LastModified" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ExceptionDates">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExceptionStartDate" Type="datetime" />
+    <Property Name="ExceptionEndDate" Type="datetime" />
+    <Property Name="IsRecurring" Type="bit" />
+  </EntityType>
+  <EntityType Name="Slots">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" />
+    <Property Name="EndTime" Type="datetime" />
+    <Property Name="ApptDate" Type="datetime" />
+  </EntityType>
+  <Function Name="usp_GetAppointmentsByDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AppointmentsDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="usp_GetAppointmentSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="start" Type="time" Mode="In" />
+    <Parameter Name="end" Type="time" Mode="In" />
+    <Parameter Name="slot" Type="int" Mode="In" />
+    <Parameter Name="SlotDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="usp_GetApptTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_GetAvailability" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_GetExceptionTimes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ApptModelStoreContainer">
+    <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Availability" EntityType="Self.Availability" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDates" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Slots" EntityType="Self.Slots" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

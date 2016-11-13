@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ApptModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointments">
+          <Key>
+            <PropertyRef Name="ApptId" />
+          </Key>
+          <Property Name="ApptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="AppointmentType" Type="int" />
+        </EntityType>
+        <EntityType Name="AppointmentTypes">
+          <Key>
+            <PropertyRef Name="ApptTypeId" />
+          </Key>
+          <Property Name="ApptTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApptType" Type="varchar" MaxLength="50" />
+          <Property Name="ApptDescription" Type="varchar" MaxLength="250" />
+          <Property Name="ApptLength" Type="int" />
+        </EntityType>
+        <EntityType Name="Availability">
+          <Key>
+            <PropertyRef Name="AvailabilityId" />
+          </Key>
+          <Property Name="AvailabilityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="DayOfWeek" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varbinary" MaxLength="150" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="LastModified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ExceptionDates">
+          <Key>
+            <PropertyRef Name="ExceptionId" />
+          </Key>
+          <Property Name="ExceptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExceptionStartDate" Type="datetime" />
+          <Property Name="ExceptionEndDate" Type="datetime" />
+          <Property Name="IsRecurring" Type="bit" />
+        </EntityType>
+        <EntityType Name="Slots">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="ApptDate" Type="datetime" />
+        </EntityType>
+        <Function Name="usp_GetAppointmentsByDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AppointmentsDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_GetAppointmentSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="time" Mode="In" />
+          <Parameter Name="end" Type="time" Mode="In" />
+          <Parameter Name="slot" Type="int" Mode="In" />
+          <Parameter Name="SlotDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_GetApptTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetAvailability" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetExceptionTimes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ApptModelStoreContainer">
+          <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Availability" EntityType="Self.Availability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slots" EntityType="Self.Slots" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ApptId" />
+          </Key>
+          <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDateTime" Type="DateTime" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="AppointmentType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AppointmentType">
+          <Key>
+            <PropertyRef Name="ApptTypeId" />
+          </Key>
+          <Property Name="ApptTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApptType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApptDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ApptLength" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Availability">
+          <Key>
+            <PropertyRef Name="AvailabilityId" />
+          </Key>
+          <Property Name="AvailabilityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDateTime" Type="DateTime" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DayOfWeek" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="Binary" MaxLength="150" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ExceptionDate">
+          <Key>
+            <PropertyRef Name="ExceptionId" />
+          </Key>
+          <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExceptionStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ExceptionEndDate" Type="DateTime" Precision="3" />
+          <Property Name="IsRecurring" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Slot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="ApptDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="ApptEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentType" />
+          <EntitySet Name="Availabilities" EntityType="Self.Availability" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDate" />
+          <EntitySet Name="Slots" EntityType="Self.Slot" />
+          <FunctionImport Name="usp_GetAppointmentsByDay" ReturnType="Collection(ApptModel.usp_GetAppointmentsByDay_Result)">
+            <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetAppointmentSlots" ReturnType="Collection(ApptModel.usp_GetAppointmentSlots_Result)">
+            <Parameter Name="start" Mode="In" Type="Time" />
+            <Parameter Name="end" Mode="In" Type="Time" />
+            <Parameter Name="slot" Mode="In" Type="Int32" />
+            <Parameter Name="SlotDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(ApptModel.usp_GetApptTypes_Result)" />
+          <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(ApptModel.usp_GetAvailability_Result)" />
+          <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(ApptModel.usp_GetExceptionTimes_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetAppointmentsByDay_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAppointmentSlots_Result">
+          <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+          <Property Type="String" Name="slots" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="usp_GetApptTypes_Result">
+          <Property Type="Int32" Name="ApptTypeId" Nullable="false" />
+          <Property Type="String" Name="ApptType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApptDescription" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ApptLength" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetAvailability_Result">
+          <Property Type="Int32" Name="AvailabilityId" Nullable="false" />
+          <Property Type="DateTime" Name="StartDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EndDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="DayOfWeek" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetExceptionTimes_Result">
+          <Property Type="Int32" Name="ExceptionId" Nullable="false" />
+          <Property Type="DateTime" Name="ExceptionStartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApptModelStoreContainer" CdmEntityContainer="ApptEntities">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="ApptModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="ApptId" ColumnName="ApptId" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="AppointmentType" ColumnName="AppointmentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentTypes">
+            <EntityTypeMapping TypeName="ApptModel.AppointmentType">
+              <MappingFragment StoreEntitySet="AppointmentTypes">
+                <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
+                <ScalarProperty Name="ApptType" ColumnName="ApptType" />
+                <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
+                <ScalarProperty Name="ApptLength" ColumnName="ApptLength" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Availabilities">
+            <EntityTypeMapping TypeName="ApptModel.Availability">
+              <MappingFragment StoreEntitySet="Availability">
+                <ScalarProperty Name="AvailabilityId" ColumnName="AvailabilityId" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ApptModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionDates">
+            <EntityTypeMapping TypeName="ApptModel.ExceptionDate">
+              <MappingFragment StoreEntitySet="ExceptionDates">
+                <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+                <ScalarProperty Name="ExceptionStartDate" ColumnName="ExceptionStartDate" />
+                <ScalarProperty Name="ExceptionEndDate" ColumnName="ExceptionEndDate" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slots">
+            <EntityTypeMapping TypeName="ApptModel.Slot">
+              <MappingFragment StoreEntitySet="Slots">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAppointmentsByDay" FunctionName="ApptModel.Store.usp_GetAppointmentsByDay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApptModel.usp_GetAppointmentsByDay_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAppointmentSlots" FunctionName="ApptModel.Store.usp_GetAppointmentSlots">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApptModel.usp_GetAppointmentSlots_Result">
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="end" ColumnName="end" />
+                <ScalarProperty Name="slots" ColumnName="slots" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetApptTypes" FunctionName="ApptModel.Store.usp_GetApptTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApptModel.usp_GetApptTypes_Result">
+                <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
+                <ScalarProperty Name="ApptType" ColumnName="ApptType" />
+                <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
+                <ScalarProperty Name="ApptLength" ColumnName="ApptLength" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAvailability" FunctionName="ApptModel.Store.usp_GetAvailability">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApptModel.usp_GetAvailability_Result">
+                <ScalarProperty Name="AvailabilityId" ColumnName="AvailabilityId" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetExceptionTimes" FunctionName="ApptModel.Store.usp_GetExceptionTimes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApptModel.usp_GetExceptionTimes_Result">
+                <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+                <ScalarProperty Name="ExceptionStartDate" ColumnName="ExceptionStartDate" />
+                <ScalarProperty Name="ExceptionEndDate" ColumnName="ExceptionEndDate" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

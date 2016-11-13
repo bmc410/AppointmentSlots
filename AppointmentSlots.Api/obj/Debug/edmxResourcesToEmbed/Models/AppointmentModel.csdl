@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AppointmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="ApptId" />
+    </Key>
+    <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartDateTime" Type="DateTime" Precision="3" />
+    <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+    <Property Name="AppointmentType" Type="Int32" />
+  </EntityType>
+  <EntityType Name="AppointmentType">
+    <Key>
+      <PropertyRef Name="ApptTypeId" />
+    </Key>
+    <Property Name="ApptTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApptType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApptDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ApptLength" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Availability">
+    <Key>
+      <PropertyRef Name="AvailabilityId" />
+    </Key>
+    <Property Name="AvailabilityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartDateTime" Type="DateTime" Precision="3" />
+    <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+    <Property Name="DayOfWeek" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="Binary" MaxLength="150" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastModified" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ExceptionDate">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExceptionStartDate" Type="DateTime" Precision="3" />
+    <Property Name="ExceptionEndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsRecurring" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Slot">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="ApptDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="AppointmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+    <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentType" />
+    <EntitySet Name="Availabilities" EntityType="Self.Availability" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDate" />
+    <EntitySet Name="Slots" EntityType="Self.Slot" />
+    <FunctionImport Name="usp_GetAppointmentsByDay" ReturnType="Collection(AppointmentModel.usp_GetAppointmentsByDay_Result)">
+      <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetAppointmentSlots" ReturnType="Collection(AppointmentModel.usp_GetAppointmentSlots_Result)">
+      <Parameter Name="start" Mode="In" Type="Time" />
+      <Parameter Name="end" Mode="In" Type="Time" />
+      <Parameter Name="slot" Mode="In" Type="Int32" />
+      <Parameter Name="SlotDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(AppointmentModel.usp_GetApptTypes_Result)" />
+    <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(AppointmentModel.usp_GetAvailability_Result)" />
+    <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(AppointmentModel.usp_GetExceptionTimes_Result)" />
+    <FunctionImport Name="usp_GetAppointmentsByMonth" ReturnType="Collection(AppointmentModel.usp_GetAppointmentsByMonth_Result)">
+      <Parameter Name="AppointmentsDate" Mode="In" Type="DateTime" />
+      <Parameter Name="AppointmentMonths" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="usp_GetAppointmentsByDay_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAppointmentSlots_Result">
+    <Property Type="DateTime" Name="start" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="end" Nullable="true" Precision="23" />
+    <Property Type="String" Name="slots" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="usp_GetApptTypes_Result">
+    <Property Type="Int32" Name="ApptTypeId" Nullable="false" />
+    <Property Type="String" Name="ApptType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApptDescription" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="ApptLength" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAvailability_Result">
+    <Property Type="Int32" Name="AvailabilityId" Nullable="false" />
+    <Property Type="DateTime" Name="StartDateTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDateTime" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="DayOfWeek" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetExceptionTimes_Result">
+    <Property Type="Int32" Name="ExceptionId" Nullable="false" />
+    <Property Type="DateTime" Name="ExceptionStartDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetAppointmentsByMonth_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="DateTime" Name="StartTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="ApptDate" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>
