@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="AppointmentSlotsApi" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Dev\\AppointmentSlots-master\\AppointmentSlots\.Api\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Dev\\AppointmentSlots-master\\AppointmentSlots\.Api\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="ApptEntities-Web.config Connection String" description="" value="metadata=res://*/AppointmentModel.csdl|res://*/AppointmentModel.ssdl|res://*/AppointmentModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mzhsb8u8nf.database.windows.net;initial catalog=BMC_DATA;persist security info=True;user id=bmc410;password=Cocacola1;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Dev\\AppointmentSlots-master\\AppointmentSlots\.Api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApptEntities']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-AppointmentSlots.Api-20161112065659.mdf;Initial Catalog=aspnet-AppointmentSlots.Api-20161112065659;Integrated Security=True" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Dev\\AppointmentSlots-master\\AppointmentSlots\.Api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="AppointmentEntities-Web.config Connection String" description="AppointmentEntities Connection String used in web.config by the application to access the database." value="metadata=res://*/Models.AppointmentModel.csdl|res://*/Models.AppointmentModel.ssdl|res://*/Models.AppointmentModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mzhsb8u8nf.database.windows.net;initial catalog=BMC_DATA;persist security info=True;user id=bmc410;password=Cocacola1;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Dev\\AppointmentSlots-master\\AppointmentSlots\.Api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='AppointmentEntities']/@connectionString" />
+  </parameter>
+</parameters>

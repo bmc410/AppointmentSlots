@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ApptModelStoreContainer" CdmEntityContainer="ApptEntities">
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="ApptModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="ApptId" ColumnName="ApptId" />
+          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+          <ScalarProperty Name="AppointmentType" ColumnName="AppointmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentTypes">
+      <EntityTypeMapping TypeName="ApptModel.AppointmentType">
+        <MappingFragment StoreEntitySet="AppointmentTypes">
+          <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
+          <ScalarProperty Name="ApptType" ColumnName="ApptType" />
+          <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
+          <ScalarProperty Name="ApptLength" ColumnName="ApptLength" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Availabilities">
+      <EntityTypeMapping TypeName="ApptModel.Availability">
+        <MappingFragment StoreEntitySet="Availability">
+          <ScalarProperty Name="AvailabilityId" ColumnName="AvailabilityId" />
+          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionDates">
+      <EntityTypeMapping TypeName="ApptModel.ExceptionDate">
+        <MappingFragment StoreEntitySet="ExceptionDates">
+          <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+          <ScalarProperty Name="ExceptionStartDate" ColumnName="ExceptionStartDate" />
+          <ScalarProperty Name="ExceptionEndDate" ColumnName="ExceptionEndDate" />
+          <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Slots">
+      <EntityTypeMapping TypeName="ApptModel.Slot">
+        <MappingFragment StoreEntitySet="Slots">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetAppointmentsByDay" FunctionName="ApptModel.Store.usp_GetAppointmentsByDay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetAppointmentsByDay_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="ApptDate" ColumnName="ApptDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetAppointmentSlots" FunctionName="ApptModel.Store.usp_GetAppointmentSlots">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetAppointmentSlots_Result">
+          <ScalarProperty Name="start" ColumnName="start" />
+          <ScalarProperty Name="end" ColumnName="end" />
+          <ScalarProperty Name="slots" ColumnName="slots" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetApptTypes" FunctionName="ApptModel.Store.usp_GetApptTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetApptTypes_Result">
+          <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
+          <ScalarProperty Name="ApptType" ColumnName="ApptType" />
+          <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
+          <ScalarProperty Name="ApptLength" ColumnName="ApptLength" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetAvailability" FunctionName="ApptModel.Store.usp_GetAvailability">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetAvailability_Result">
+          <ScalarProperty Name="AvailabilityId" ColumnName="AvailabilityId" />
+          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetExceptionTimes" FunctionName="ApptModel.Store.usp_GetExceptionTimes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetExceptionTimes_Result">
+          <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+          <ScalarProperty Name="ExceptionStartDate" ColumnName="ExceptionStartDate" />
+          <ScalarProperty Name="ExceptionEndDate" ColumnName="ExceptionEndDate" />
+          <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="ApptModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

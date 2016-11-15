@@ -78,7 +78,10 @@ namespace AppointmentSlots.Api.Controllers
                     Comment = request.Comment,
                     CustId = request.CustId
                 };
-                return 0;
+                db.Appointments.Add(appt);
+                db.Entry(appt).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return appt.ApptId;
             }
         }
 
@@ -96,7 +99,7 @@ namespace AppointmentSlots.Api.Controllers
                              EndSlot = (DateTime)a.end,
                          }).ToList();
 
-                slots = slots.Where(x => x.StartSlot.TimeOfDay >= DateTime.Now.TimeOfDay).ToList();
+                //slots = slots.Where(x => x.StartSlot.TimeOfDay >= DateTime.Now.TimeOfDay).ToList();
                 return slots;
             }
 
