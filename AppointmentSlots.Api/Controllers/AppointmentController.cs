@@ -10,7 +10,6 @@ namespace AppointmentSlots.Api.Controllers
 {
     public class AppointmentController : ApiController
     {
-
         List<ApptModel> appts;
         List<SlotModel> slots;
         List<SlotModel> availableslots;
@@ -19,21 +18,12 @@ namespace AppointmentSlots.Api.Controllers
         List<AppointmentType> appointmentTypes;
 
 
-        static List<ApptModel> GetAppointments(DateTime apptDate)
+        public List<ApptModel> GetAppointments(DateTime apptDate)
         {
-            using (ApptEntities db = new ApptEntities())
-            {
-                List<ApptModel> appts = new List<ApptModel>();
-                appts = (from a in db.usp_GetAppointmentsByDay(apptDate)
-                         select new ApptModel
-                         {
-                             StartTime = (DateTime)a.StartTime,
-                             EndTime = (DateTime)a.EndTime
-                         }).ToList();
+            AppointmentController ac = new AppointmentController();
+            var a = ac.GetAppointments();
+            return a.Where(x => x.StartTime.Date == apptDate.Date).ToList();
 
-
-                return appts;
-            }
         }
 
         private void Setup()
@@ -66,23 +56,68 @@ namespace AppointmentSlots.Api.Controllers
             }
         }
 
-        public int ScheduleAppointment(ApptRequest request)
+        public ScheduleAppointmentResponse ScheduleAppointment(ApptRequest request)
         {
-            using (ApptEntities db = new ApptEntities())
+            ScheduleAppointmentResponse resp = new ScheduleAppointmentResponse
             {
-                Appointment appt = new Appointment
+                IsSussessful = false
+            };
+
+            try
+            {
+                using (ApptEntities db = new ApptEntities())
                 {
-                    AppointmentType = request.AppointmentType,
-                    StartDateTime = request.StartDateTime,
-                    EndDateTime = request.EndDateTime,
-                    Comment = request.Comment,
-                    CustId = request.CustId
-                };
-                db.Appointments.Add(appt);
-                db.Entry(appt).State = System.Data.Entity.EntityState.Added;
-                db.SaveChanges();
-                return appt.ApptId;
+                    var isAvailable = (from a in db.Appointments
+                                       where a.StartDateTime == request.StartDateTime
+                                       select a).FirstOrDefault();
+
+                    if (isAvailable != null)
+                    {
+                        throw new Exception("This appointment slot has already been reserved");
+                    }
+
+
+                    Customer cust = (from c in db.Customers
+                                     where c.Email == request.Email
+                                     && c.FirstName == request.FirstName
+                                     && c.LastName == request.LastName
+                                     select c).FirstOrDefault();
+
+                    if (cust == null)
+                    {
+                        cust = new Customer()
+                        {
+                            Email = request.Email,
+                            FirstName = request.FirstName,
+                            LastName = request.LastName,
+                            Phone = request.Phone
+                        };
+                        db.Customers.Add(cust);
+                        db.SaveChanges();
+                    }
+
+                    Appointment appt = new Appointment
+                    {
+                        AppointmentType = request.AppointmentType,
+                        StartDateTime = request.StartDateTime,
+                        EndDateTime = request.EndDateTime,
+                        Comment = request.Comment,
+                        CustId = cust.CustId
+                    };
+                    db.Appointments.Add(appt);
+                    db.Entry(appt).State = System.Data.Entity.EntityState.Added;
+                    db.SaveChanges();
+                    resp.IsSussessful = true;
+                    resp.ApptID = appt.ApptId;
+
+                }
             }
+            catch (Exception ex)
+            {
+                resp.Message = ex.Message;
+            }
+
+            return resp;
         }
 
         // GET api/Appointment/GetSlots/30
@@ -121,7 +156,7 @@ namespace AppointmentSlots.Api.Controllers
             }
         }
 
-        static List<ApptAvailability> GetApptAvailability()
+        public  List<ApptAvailability> GetApptAvailability()
         {
             using (ApptEntities db = new ApptEntities())
             {
@@ -136,7 +171,7 @@ namespace AppointmentSlots.Api.Controllers
             }
         }
 
-        static List<ApptException> GetApptExceptions()
+        public  List<ApptException> GetApptExceptions()
         {
             using (ApptEntities db = new ApptEntities())
             {
@@ -152,18 +187,29 @@ namespace AppointmentSlots.Api.Controllers
         }
 
         // GET api/Appointment/GetAppointments
-        public List<ApptModel> GetAppointments()
+        public  List<ApptModel> GetAppointments()
         {
             using (ApptEntities db = new ApptEntities())
             {
                 List<ApptModel> appts = new List<ApptModel>();
                 appts = (from a in db.Appointments
+                         join c in db.Customers on a.CustId equals c.CustId
                          select new ApptModel
                          {
                              StartTime = (DateTime)a.StartDateTime,
-                             EndTime = (DateTime)a.EndDateTime
+                             EndTime = (DateTime)a.EndDateTime,
+                             CustId = c.CustId,
+                             Email = c.Email,
+                             FirstName = c.FirstName,
+                             LastName = c.LastName,
+                             Phone = c.Phone,
                          }).ToList();
 
+                foreach(var a in appts)
+                {
+                    a.StartTimeString = a.StartTime.ToShortTimeString();
+                    a.EndTimeString = a.EndTime.ToShortTimeString();
+                }
 
                 return appts;
             }

@@ -97,21 +97,7 @@ public partial class SlotsTableEntities : DbContext
     }
 
 
-    public virtual ObjectResult<usp_GetAppointmentsByMonth_Result> usp_GetAppointmentsByMonth(Nullable<System.DateTime> appointmentsDate, Nullable<int> appointmentMonths)
-    {
-
-        var appointmentsDateParameter = appointmentsDate.HasValue ?
-            new ObjectParameter("AppointmentsDate", appointmentsDate) :
-            new ObjectParameter("AppointmentsDate", typeof(System.DateTime));
-
-
-        var appointmentMonthsParameter = appointmentMonths.HasValue ?
-            new ObjectParameter("AppointmentMonths", appointmentMonths) :
-            new ObjectParameter("AppointmentMonths", typeof(int));
-
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAppointmentsByMonth_Result>("usp_GetAppointmentsByMonth", appointmentsDateParameter, appointmentMonthsParameter);
-    }
+   
 
 }
 

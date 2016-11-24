@@ -5,9 +5,8 @@ using System.Web;
 
 namespace AppointmentSlots.Api.Models
 {
-    public class ApptRequest
+    public class ApptRequest: CustomerRequest
     {
-        public int CustId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public int AppointmentType { get; set; }

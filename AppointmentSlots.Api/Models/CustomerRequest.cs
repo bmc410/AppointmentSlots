@@ -7,6 +7,7 @@ namespace AppointmentSlots.Api.Models
 {
     public class CustomerRequest
     {
+        public int CustId { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Email { get; set; }
