@@ -19,6 +19,7 @@
     <Property Name="ApptType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ApptDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="ApptLength" Type="Int32" />
+    <Property Name="ApptPrice" Type="Double" />
   </EntityType>
   <EntityType Name="Availability">
     <Key>

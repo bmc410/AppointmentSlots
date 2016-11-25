@@ -18,5 +18,6 @@ namespace AppointmentSlots.Api
         public string ApptType { get; set; }
         public string ApptDescription { get; set; }
         public Nullable<int> ApptLength { get; set; }
+        public Nullable<double> ApptPrice { get; set; }
     }
 }

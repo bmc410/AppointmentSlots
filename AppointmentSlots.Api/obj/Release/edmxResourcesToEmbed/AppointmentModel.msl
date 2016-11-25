@@ -16,6 +16,7 @@
     <EntitySetMapping Name="AppointmentTypes">
       <EntityTypeMapping TypeName="ApptModel.AppointmentType">
         <MappingFragment StoreEntitySet="AppointmentTypes">
+          <ScalarProperty Name="ApptPrice" ColumnName="ApptPrice" />
           <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
           <ScalarProperty Name="ApptType" ColumnName="ApptType" />
           <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />

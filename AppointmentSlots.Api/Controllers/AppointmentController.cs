@@ -15,7 +15,7 @@ namespace AppointmentSlots.Api.Controllers
         List<SlotModel> availableslots;
         List<ApptException> apptExceptions;
         List<ApptAvailability> apptAvailability;
-        List<AppointmentType> appointmentTypes;
+        List<ApptTypeDescription> appointmentTypes;
 
 
         public List<ApptModel> GetAppointments(DateTime apptDate)
@@ -141,17 +141,18 @@ namespace AppointmentSlots.Api.Controllers
         }
 
         // GET api/Appointment/GetApptTypes
-        public List<AppointmentType> GetApptTypes()
+        public List<ApptTypeDescription> GetApptTypes()
         {
             using (ApptEntities db = new ApptEntities())
             {
-                return (from a in db.usp_GetApptTypes()
-                        select new AppointmentType
+                return (from a in db.AppointmentTypes
+                        select new ApptTypeDescription
                         {
                             ApptDescription = a.ApptDescription,
                             ApptLength = (int)a.ApptLength,
                             ApptType = a.ApptType,
-                            ApptTypeId = a.ApptTypeId
+                            ApptTypeID = a.ApptTypeId,
+                            ApptPrice = (double)a.ApptPrice
                         }).ToList();
             }
         }

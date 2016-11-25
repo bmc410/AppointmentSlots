@@ -19,6 +19,7 @@
     <Property Name="ApptType" Type="varchar" MaxLength="50" />
     <Property Name="ApptDescription" Type="varchar" MaxLength="250" />
     <Property Name="ApptLength" Type="int" />
+    <Property Name="ApptPrice" Type="float" />
   </EntityType>
   <EntityType Name="Availability">
     <Key>

@@ -249,6 +249,7 @@
     <Compile Include="Models\ApptException.cs" />
     <Compile Include="Models\ApptModel.cs" />
     <Compile Include="Models\ApptRequest.cs" />
+    <Compile Include="Models\ApptTypeDescription.cs" />
     <Compile Include="Models\CustomerRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ScheduleAppointmentResponse.cs" />

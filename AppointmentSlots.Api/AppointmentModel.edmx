@@ -24,6 +24,7 @@
           <Property Name="ApptType" Type="varchar" MaxLength="50" />
           <Property Name="ApptDescription" Type="varchar" MaxLength="250" />
           <Property Name="ApptLength" Type="int" />
+          <Property Name="ApptPrice" Type="float" />
         </EntityType>
         <EntityType Name="Availability">
           <Key>
@@ -109,6 +110,7 @@
           <Property Name="ApptType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApptDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ApptLength" Type="Int32" />
+          <Property Name="ApptPrice" Type="Double" />
         </EntityType>
         <EntityType Name="Availability">
           <Key>
@@ -221,6 +223,7 @@
           <EntitySetMapping Name="AppointmentTypes">
             <EntityTypeMapping TypeName="ApptModel.AppointmentType">
               <MappingFragment StoreEntitySet="AppointmentTypes">
+                <ScalarProperty Name="ApptPrice" ColumnName="ApptPrice" />
                 <ScalarProperty Name="ApptTypeId" ColumnName="ApptTypeId" />
                 <ScalarProperty Name="ApptType" ColumnName="ApptType" />
                 <ScalarProperty Name="ApptDescription" ColumnName="ApptDescription" />
