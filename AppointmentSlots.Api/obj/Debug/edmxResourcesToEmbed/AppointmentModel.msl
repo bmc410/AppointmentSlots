@@ -106,6 +106,7 @@
     <EntitySetMapping Name="Customers">
       <EntityTypeMapping TypeName="ApptModel.Customer">
         <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="PIN" ColumnName="PIN" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />

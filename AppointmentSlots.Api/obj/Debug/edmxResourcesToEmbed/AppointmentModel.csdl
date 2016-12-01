@@ -5,8 +5,8 @@
       <PropertyRef Name="ApptId" />
     </Key>
     <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StartDateTime" Type="DateTime" Precision="3" />
-    <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+    <Property Name="StartDateTime" Type="DateTime" Precision="7" />
+    <Property Name="EndDateTime" Type="DateTime" Precision="7" />
     <Property Name="AppointmentType" Type="Int32" />
     <Property Name="CustId" Type="Int32" />
     <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -110,5 +110,6 @@
     <Property Name="IsRegistered" Type="Boolean" />
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

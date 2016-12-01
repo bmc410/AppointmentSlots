@@ -15,6 +15,7 @@ namespace AppointmentSlots.Api.Models
         public String UserName { get; set; }
         public String Password { get; set; }
         public Boolean? MyProIsRegisteredperty { get; set; }
+        public String PIN { get; set; }
 
     }
 }

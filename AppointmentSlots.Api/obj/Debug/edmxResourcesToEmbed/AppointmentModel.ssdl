@@ -5,8 +5,8 @@
       <PropertyRef Name="ApptId" />
     </Key>
     <Property Name="ApptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StartDateTime" Type="datetime" />
-    <Property Name="EndDateTime" Type="datetime" />
+    <Property Name="StartDateTime" Type="datetime2" Precision="7" />
+    <Property Name="EndDateTime" Type="datetime2" Precision="7" />
     <Property Name="AppointmentType" Type="int" />
     <Property Name="CustId" Type="int" />
     <Property Name="Comment" Type="varchar" MaxLength="250" />
@@ -43,6 +43,7 @@
     <Property Name="IsRegistered" Type="bit" />
     <Property Name="UserName" Type="varchar" MaxLength="50" />
     <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="PIN" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="ExceptionDates">
     <Key>

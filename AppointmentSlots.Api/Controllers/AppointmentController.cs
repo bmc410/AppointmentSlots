@@ -33,26 +33,78 @@ namespace AppointmentSlots.Api.Controllers
             appointmentTypes = GetApptTypes();
         }
 
-        public int CreateCustomer(CustomerRequest request)
+        [HttpPost]
+        public Customer GetCustomerInfo(CustomerRequest request)
         {
             using (ApptEntities db = new ApptEntities())
             {
-                Customer cust = new Customer
+                Customer cust = (from c in db.Customers
+                                 where (c.Email == request.Email
+                                 && c.Phone == request.Phone)
+                                 || c.PIN == request.PIN
+                                 select c).FirstOrDefault();
+                return cust;
+            }
+        }
+
+        public Customer LogInByEmail(String Email)
+        {
+            using (ApptEntities db = new ApptEntities())
+            {
+                Customer cust = (from c in db.Customers
+                                 where c.Email == Email
+                                 select c).FirstOrDefault();
+                return cust;
+            }
+        }
+
+        [HttpPost]
+        public Customer SaveCustomer(CustomerRequest request)
+        {
+            using (ApptEntities db = new ApptEntities())
+            {
+                Customer cust = (from c in db.Customers
+                                 where (c.Email == request.Email
+                                 && c.Phone == request.Phone)
+                                 || c.PIN == request.PIN
+                                 select c).FirstOrDefault();
+
+                if(cust == null)
                 {
-                     Email = request.Email,
-                     FirstName = request.FirstName,
-                     LastName = request.LastName,
-                     Password = request.Password,
-                     Phone = request.Phone,
-                     UserName = request.UserName,
-                     IsRegistered = request.UserName != null && request.Password != null? true:false
-                         
-                };
-                db.Customers.Add(cust);
-                db.Entry(cust).State = System.Data.Entity.EntityState.Added;
+                    cust = new Customer();
+                }
+
+                if(!string.IsNullOrEmpty(request.PIN))
+                    cust.PIN = request.PIN;
+
+                if (!string.IsNullOrEmpty(request.Email))
+                    cust.Email = request.Email;
+
+                if (!string.IsNullOrEmpty(request.FirstName))
+                    cust.FirstName = request.FirstName;
+
+                if (!string.IsNullOrEmpty(request.LastName))
+                    cust.LastName = cust.LastName;
+
+                if (!string.IsNullOrEmpty(request.Phone))
+                    cust.Phone = cust.Phone;
+
+                if(cust.CustId == 0)
+                {
+                    db.Customers.Add(cust);
+                    db.Entry(cust).State = System.Data.Entity.EntityState.Added;
+                }
+                else
+                {
+                    db.Entry(cust).State = System.Data.Entity.EntityState.Modified;
+                }
+
                 db.SaveChanges();
 
-                return cust.CustId;
+                return (from c in db.Customers
+                 where c.CustId == cust.CustId
+                 select c).FirstOrDefault();
+                 
             }
         }
 

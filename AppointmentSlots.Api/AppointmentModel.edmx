@@ -10,8 +10,8 @@
             <PropertyRef Name="ApptId" />
           </Key>
           <Property Name="ApptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StartDateTime" Type="datetime" />
-          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="StartDateTime" Type="datetime2" Precision="7" />
+          <Property Name="EndDateTime" Type="datetime2" Precision="7" />
           <Property Name="AppointmentType" Type="int" />
           <Property Name="CustId" Type="int" />
           <Property Name="Comment" Type="varchar" MaxLength="250" />
@@ -48,6 +48,7 @@
           <Property Name="IsRegistered" Type="bit" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="PIN" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="ExceptionDates">
           <Key>
@@ -96,8 +97,8 @@
             <PropertyRef Name="ApptId" />
           </Key>
           <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDateTime" Type="DateTime" Precision="3" />
-          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="StartDateTime" Type="DateTime" Precision="7" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="7" />
           <Property Name="AppointmentType" Type="Int32" />
           <Property Name="CustId" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -201,6 +202,7 @@
           <Property Name="IsRegistered" Type="Boolean" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -313,6 +315,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="ApptModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
