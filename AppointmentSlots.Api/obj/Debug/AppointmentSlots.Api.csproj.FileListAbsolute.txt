@@ -74,3 +74,4 @@ C:\Dev\AppointmentSlots-master\AppointmentSlots.Api\bin\Microsoft.Owin.Security.
 C:\Dev\AppointmentSlots-master\AppointmentSlots.Api\bin\System.Web.Http.Owin.xml
 C:\Dev\AppointmentSlots-master\AppointmentSlots.Api\obj\Debug\AppointmentSlots.Api.dll
 C:\Dev\AppointmentSlots-master\AppointmentSlots.Api\obj\Debug\AppointmentSlots.Api.pdb
+C:\Dev\AppointmentSlots-master\AppointmentSlots.Api\obj\Debug\AppointmentSlots.Api.csprojResolveAssemblyReference.cache

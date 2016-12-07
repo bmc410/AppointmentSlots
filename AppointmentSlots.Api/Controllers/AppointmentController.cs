@@ -26,6 +26,14 @@ namespace AppointmentSlots.Api.Controllers
 
         }
 
+        public List<ApptModel> GetAppointmentsByCustId(String custId)
+        {
+            AppointmentController ac = new AppointmentController();
+            var a = ac.GetAppointments();
+            return a.Where(x => x.PIN == custId && x.StartTime > DateTime.Now.AddMinutes(-1)).ToList();
+
+        }
+
         private void Setup()
         {
             apptAvailability = GetApptAvailability();
@@ -42,6 +50,22 @@ namespace AppointmentSlots.Api.Controllers
                                  where (c.Email == request.Email
                                  && c.Phone == request.Phone)
                                  || c.PIN == request.PIN
+                                 select c).FirstOrDefault();
+                return cust;
+            }
+        }
+
+
+        public Customer GetCustomerByPin(String PINCode)
+        {
+            if (PINCode == null)
+                return new Customer();
+
+
+            using (ApptEntities db = new ApptEntities())
+            {
+                Customer cust = (from c in db.Customers
+                                 where c.PIN == PINCode
                                  select c).FirstOrDefault();
                 return cust;
             }
@@ -142,7 +166,8 @@ namespace AppointmentSlots.Api.Controllers
                             Email = request.Email,
                             FirstName = request.FirstName,
                             LastName = request.LastName,
-                            Phone = request.Phone
+                            Phone = request.Phone,
+                            PIN = request.PIN
                         };
                         db.Customers.Add(cust);
                         db.SaveChanges();
@@ -256,6 +281,7 @@ namespace AppointmentSlots.Api.Controllers
                              FirstName = c.FirstName,
                              LastName = c.LastName,
                              Phone = c.Phone,
+                             PIN = c.PIN
                          }).ToList();
 
                 foreach(var a in appts)
