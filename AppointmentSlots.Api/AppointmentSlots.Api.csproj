@@ -233,7 +233,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>AppointmentModel.tt</DependentUpon>
     </Compile>
@@ -252,6 +251,7 @@
     <Compile Include="Models\ApptTypeDescription.cs" />
     <Compile Include="Models\CustomerRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\ScheduleAppointmentResponse.cs" />
     <Compile Include="Models\SlotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

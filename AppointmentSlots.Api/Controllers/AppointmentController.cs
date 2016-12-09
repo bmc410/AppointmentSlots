@@ -26,11 +26,11 @@ namespace AppointmentSlots.Api.Controllers
 
         }
 
-        public List<ApptModel> GetAppointmentsByCustId(String custId)
+        public List<ApptModel> GetAppointmentsByCustId(int custId)
         {
             AppointmentController ac = new AppointmentController();
             var a = ac.GetAppointments();
-            return a.Where(x => x.PIN == custId && x.StartTime > DateTime.Now.AddMinutes(-1)).ToList();
+            return a.Where(x => x.CustId == custId).ToList();
 
         }
 
@@ -41,97 +41,10 @@ namespace AppointmentSlots.Api.Controllers
             appointmentTypes = GetApptTypes();
         }
 
-        [HttpPost]
-        public Customer GetCustomerInfo(CustomerRequest request)
-        {
-            using (ApptEntities db = new ApptEntities())
-            {
-                Customer cust = (from c in db.Customers
-                                 where (c.Email == request.Email
-                                 && c.Phone == request.Phone)
-                                 || c.PIN == request.PIN
-                                 select c).FirstOrDefault();
-                return cust;
-            }
-        }
+      
 
 
-        public Customer GetCustomerByPin(String PINCode)
-        {
-            if (PINCode == null)
-                return new Customer();
-
-
-            using (ApptEntities db = new ApptEntities())
-            {
-                Customer cust = (from c in db.Customers
-                                 where c.PIN == PINCode
-                                 select c).FirstOrDefault();
-                return cust;
-            }
-        }
-
-        public Customer LogInByEmail(String Email)
-        {
-            using (ApptEntities db = new ApptEntities())
-            {
-                Customer cust = (from c in db.Customers
-                                 where c.Email == Email
-                                 select c).FirstOrDefault();
-                return cust;
-            }
-        }
-
-        [HttpPost]
-        public Customer SaveCustomer(CustomerRequest request)
-        {
-            using (ApptEntities db = new ApptEntities())
-            {
-                Customer cust = (from c in db.Customers
-                                 where (c.Email == request.Email
-                                 && c.Phone == request.Phone)
-                                 || c.PIN == request.PIN
-                                 select c).FirstOrDefault();
-
-                if(cust == null)
-                {
-                    cust = new Customer();
-                }
-
-                if(!string.IsNullOrEmpty(request.PIN))
-                    cust.PIN = request.PIN;
-
-                if (!string.IsNullOrEmpty(request.Email))
-                    cust.Email = request.Email;
-
-                if (!string.IsNullOrEmpty(request.FirstName))
-                    cust.FirstName = request.FirstName;
-
-                if (!string.IsNullOrEmpty(request.LastName))
-                    cust.LastName = cust.LastName;
-
-                if (!string.IsNullOrEmpty(request.Phone))
-                    cust.Phone = cust.Phone;
-
-                if(cust.CustId == 0)
-                {
-                    db.Customers.Add(cust);
-                    db.Entry(cust).State = System.Data.Entity.EntityState.Added;
-                }
-                else
-                {
-                    db.Entry(cust).State = System.Data.Entity.EntityState.Modified;
-                }
-
-                db.SaveChanges();
-
-                return (from c in db.Customers
-                 where c.CustId == cust.CustId
-                 select c).FirstOrDefault();
-                 
-            }
-        }
-
+      
         public ScheduleAppointmentResponse ScheduleAppointment(ApptRequest request)
         {
             ScheduleAppointmentResponse resp = new ScheduleAppointmentResponse
@@ -154,24 +67,8 @@ namespace AppointmentSlots.Api.Controllers
 
 
                     Customer cust = (from c in db.Customers
-                                     where c.Email == request.Email
-                                     && c.FirstName == request.FirstName
-                                     && c.LastName == request.LastName
+                                     where c.CustId == request.CustId
                                      select c).FirstOrDefault();
-
-                    if (cust == null)
-                    {
-                        cust = new Customer()
-                        {
-                            Email = request.Email,
-                            FirstName = request.FirstName,
-                            LastName = request.LastName,
-                            Phone = request.Phone,
-                            PIN = request.PIN
-                        };
-                        db.Customers.Add(cust);
-                        db.SaveChanges();
-                    }
 
                     Appointment appt = new Appointment
                     {
