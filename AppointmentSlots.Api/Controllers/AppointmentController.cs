@@ -169,6 +169,7 @@ namespace AppointmentSlots.Api.Controllers
                 List<ApptModel> appts = new List<ApptModel>();
                 appts = (from a in db.Appointments
                          join c in db.Customers on a.CustId equals c.CustId
+                         orderby a.StartDateTime descending
                          select new ApptModel
                          {
                              StartTime = (DateTime)a.StartDateTime,
