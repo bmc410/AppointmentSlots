@@ -236,7 +236,13 @@
     <Compile Include="Customer.cs">
       <DependentUpon>AppointmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="database_firewall_rules.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExceptionDate.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTimeSlots_Result.cs">
       <DependentUpon>AppointmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -250,6 +256,7 @@
     <Compile Include="Models\ApptRequest.cs" />
     <Compile Include="Models\ApptTypeDescription.cs" />
     <Compile Include="Models\CustomerRequest.cs" />
+    <Compile Include="Models\GetSlotsRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\ScheduleAppointmentResponse.cs" />
@@ -274,6 +281,9 @@
       <DependentUpon>AppointmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_GetExceptionTimes_Result.cs">
+      <DependentUpon>AppointmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSlotsForDates_Result.cs">
       <DependentUpon>AppointmentModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

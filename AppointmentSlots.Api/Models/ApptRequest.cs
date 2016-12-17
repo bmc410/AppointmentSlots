@@ -7,8 +7,8 @@ namespace AppointmentSlots.Api.Models
 {
     public class ApptRequest: CustomerRequest
     {
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public DateTime ApptDateTime { get; set; }
+        public int Duration { get; set; }
         public int AppointmentType { get; set; }
         public String Comment { get; set; }
 

@@ -27,12 +27,13 @@ namespace AppointmentSlots.Api
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AppointmentType> AppointmentTypes { get; set; }
         public virtual DbSet<Availability> Availabilities { get; set; }
         public virtual DbSet<ExceptionDate> ExceptionDates { get; set; }
         public virtual DbSet<Slot> Slots { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
     
         public virtual ObjectResult<usp_GetAppointmentsByDay_Result> usp_GetAppointmentsByDay(Nullable<System.DateTime> appointmentsDate)
         {
@@ -77,6 +78,49 @@ namespace AppointmentSlots.Api
         public virtual ObjectResult<usp_GetExceptionTimes_Result> usp_GetExceptionTimes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetExceptionTimes_Result>("usp_GetExceptionTimes");
+        }
+    
+        [DbFunction("ApptEntities", "GetTimeSlots")]
+        public virtual IQueryable<GetTimeSlots_Result> GetTimeSlots(Nullable<System.DateTime> starttime, Nullable<System.DateTime> endtime, Nullable<int> interval)
+        {
+            var starttimeParameter = starttime.HasValue ?
+                new ObjectParameter("starttime", starttime) :
+                new ObjectParameter("starttime", typeof(System.DateTime));
+    
+            var endtimeParameter = endtime.HasValue ?
+                new ObjectParameter("endtime", endtime) :
+                new ObjectParameter("endtime", typeof(System.DateTime));
+    
+            var intervalParameter = interval.HasValue ?
+                new ObjectParameter("interval", interval) :
+                new ObjectParameter("interval", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetTimeSlots_Result>("[ApptEntities].[GetTimeSlots](@starttime, @endtime, @interval)", starttimeParameter, endtimeParameter, intervalParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSlotsForDates_Result> usp_GetSlotsForDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<System.TimeSpan> startTime, Nullable<System.TimeSpan> endTime, Nullable<int> duration)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var startTimeParameter = startTime.HasValue ?
+                new ObjectParameter("StartTime", startTime) :
+                new ObjectParameter("StartTime", typeof(System.TimeSpan));
+    
+            var endTimeParameter = endTime.HasValue ?
+                new ObjectParameter("EndTime", endTime) :
+                new ObjectParameter("EndTime", typeof(System.TimeSpan));
+    
+            var durationParameter = duration.HasValue ?
+                new ObjectParameter("Duration", duration) :
+                new ObjectParameter("Duration", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSlotsForDates_Result>("usp_GetSlotsForDates", startDateParameter, endDateParameter, startTimeParameter, endTimeParameter, durationParameter);
         }
     }
 }

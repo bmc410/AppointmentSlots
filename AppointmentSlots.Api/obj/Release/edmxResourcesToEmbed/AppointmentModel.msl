@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ApptModelStoreContainer" CdmEntityContainer="ApptEntities">
-    <EntitySetMapping Name="Appointments">
-      <EntityTypeMapping TypeName="ApptModel.Appointment">
-        <MappingFragment StoreEntitySet="Appointments">
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="CustId" ColumnName="CustId" />
-          <ScalarProperty Name="ApptId" ColumnName="ApptId" />
-          <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
-          <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
-          <ScalarProperty Name="AppointmentType" ColumnName="AppointmentType" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AppointmentTypes">
       <EntityTypeMapping TypeName="ApptModel.AppointmentType">
         <MappingFragment StoreEntitySet="AppointmentTypes">
@@ -119,5 +107,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="database_firewall_rules">
+      <EntityTypeMapping TypeName="ApptModel.database_firewall_rules">
+        <MappingFragment StoreEntitySet="database_firewall_rules">
+          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+          <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+          <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="ApptModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+          <ScalarProperty Name="AppointmentType" ColumnName="AppointmentType" />
+          <ScalarProperty Name="ApptDateTime" ColumnName="ApptDateTime" />
+          <ScalarProperty Name="ApptId" ColumnName="ApptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetTimeSlots" FunctionName="ApptModel.Store.GetTimeSlots">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.GetTimeSlots_Result">
+          <ScalarProperty Name="slotfrom" ColumnName="slotfrom" />
+          <ScalarProperty Name="slotto" ColumnName="slotto" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_GetSlotsForDates" FunctionName="ApptModel.Store.usp_GetSlotsForDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ApptModel.usp_GetSlotsForDates_Result">
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

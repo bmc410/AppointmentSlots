@@ -10,15 +10,10 @@
 namespace AppointmentSlots.Api
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Appointment
+    public partial class usp_GetSlotsForDates_Result
     {
-        public int ApptId { get; set; }
-        public Nullable<System.DateTime> ApptDateTime { get; set; }
-        public Nullable<int> AppointmentType { get; set; }
-        public Nullable<int> CustId { get; set; }
-        public string Comment { get; set; }
-        public Nullable<int> Duration { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     }
 }

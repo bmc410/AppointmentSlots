@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ApptModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Appointment">
-    <Key>
-      <PropertyRef Name="ApptId" />
-    </Key>
-    <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StartDateTime" Type="DateTime" Precision="7" />
-    <Property Name="EndDateTime" Type="DateTime" Precision="7" />
-    <Property Name="AppointmentType" Type="Int32" />
-    <Property Name="CustId" Type="Int32" />
-    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="AppointmentType">
     <Key>
       <PropertyRef Name="ApptTypeId" />
@@ -49,7 +38,6 @@
     <Property Name="ApptDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityContainer Name="ApptEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Appointments" EntityType="Self.Appointment" />
     <EntitySet Name="AppointmentTypes" EntityType="Self.AppointmentType" />
     <EntitySet Name="Availabilities" EntityType="Self.Availability" />
     <EntitySet Name="ExceptionDates" EntityType="Self.ExceptionDate" />
@@ -67,6 +55,20 @@
     <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(ApptModel.usp_GetAvailability_Result)" />
     <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(ApptModel.usp_GetExceptionTimes_Result)" />
     <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
+    <EntitySet Name="database_firewall_rules" EntityType="ApptModel.database_firewall_rules" />
+    <EntitySet Name="Appointments" EntityType="ApptModel.Appointment" />
+    <FunctionImport Name="GetTimeSlots" IsComposable="true" ReturnType="Collection(ApptModel.GetTimeSlots_Result)">
+      <Parameter Name="starttime" Mode="In" Type="DateTime" />
+      <Parameter Name="endtime" Mode="In" Type="DateTime" />
+      <Parameter Name="interval" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetSlotsForDates" ReturnType="Collection(ApptModel.usp_GetSlotsForDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="StartTime" Mode="In" Type="Time" />
+      <Parameter Name="EndTime" Mode="In" Type="Time" />
+      <Parameter Name="Duration" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="usp_GetAppointmentsByDay_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -112,4 +114,39 @@
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="ApptId" />
+    </Key>
+    <Property Name="ApptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApptDateTime" Type="DateTime" Precision="7" />
+    <Property Name="AppointmentType" Type="Int32" />
+    <Property Name="CustId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Duration" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="GetTimeSlots_Result">
+    <Property Type="DateTime" Name="slotfrom" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="slotto" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="usp_GetSlotsForDates_Result">
+    <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+  </ComplexType>
 </Schema>
