@@ -107,7 +107,7 @@ namespace AppointmentSlots.Api.Controllers
                 DateTime startDate = RoundUp(currentDateTime, new TimeSpan(0, request.duration, 0));
                 DateTime endDate = DateTime.Now.AddDays(request.daysToGet);
                 TimeSpan tsStart = new TimeSpan(8, 0, 0);
-                TimeSpan tsEnd = new TimeSpan(17, 0, 0);
+                TimeSpan tsEnd = new TimeSpan(20, 0, 0);
                 switch (request.apptLength)
                 {
                     case 30:
