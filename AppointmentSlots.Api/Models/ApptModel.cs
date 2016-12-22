@@ -12,6 +12,7 @@ namespace AppointmentSlots.Api.Models
         public DateTime EndTime { get; set; }
         public String StartTimeString { get; set; }
         public String EndTimeString { get; set; }
-        
+        public int? Duration { get; set; }
+
     }
 }

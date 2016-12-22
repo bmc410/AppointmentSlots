@@ -197,6 +197,11 @@ namespace AppointmentSlots.Api.Controllers
             }
         }
 
+        private DateTime GetEndTime(DateTime? apptTime, int? Duration)
+        {
+            return DateTime.Parse(apptTime.ToString()).AddMinutes(Double.Parse(Duration.ToString()));
+        }
+
         // GET api/Appointment/GetAppointments
         public  List<ApptModel> GetAppointments()
         {
@@ -209,7 +214,8 @@ namespace AppointmentSlots.Api.Controllers
                          select new ApptModel
                          {
                              StartTime = (DateTime)a.ApptDateTime,
-                             EndTime = DateTime.Parse(a.ApptDateTime.ToString()).AddMinutes(Double.Parse(a.Duration.ToString())),
+                             //EndTime = GetEndTime(a.ApptDateTime,a.Duration),
+                             Duration = a.Duration,
                              CustId = c.CustId,
                              Email = c.Email,
                              FirstName = c.FirstName,
