@@ -8,6 +8,7 @@ namespace AppointmentSlots.Api.Models
 {
     public class ApptModel:Customer
     {
+        public int ApptId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public String StartTimeString { get; set; }

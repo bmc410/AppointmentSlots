@@ -26,6 +26,22 @@ namespace AppointmentSlots.Api.Controllers
 
         }
 
+        [HttpGet]
+        public void DeleteAppointmentsByApptId(int apptId)
+        {
+            using (ApptEntities db = new ApptEntities())
+            {
+                Appointment appt = db.Appointments.Where(x => x.ApptId == apptId).FirstOrDefault();
+                if (appt == null)
+                    return;
+
+                db.Appointments.Remove(appt);
+                db.Entry(appt).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+            }
+
+        }
+
         public List<ApptModel> GetAppointmentsByCustId(int custId)
         {
             AppointmentController ac = new AppointmentController();
@@ -213,6 +229,7 @@ namespace AppointmentSlots.Api.Controllers
                          orderby a.ApptDateTime descending
                          select new ApptModel
                          {
+                             ApptId = a.ApptId,
                              StartTime = (DateTime)a.ApptDateTime,
                              //EndTime = GetEndTime(a.ApptDateTime,a.Duration),
                              Duration = a.Duration,
