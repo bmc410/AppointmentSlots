@@ -21,6 +21,7 @@ namespace AppointmentSlots.Api.Controllers
                 Customer cust = (from c in db.Customers
                                  where c.UserName == request.Username
                                  && c.Password == request.Password
+                                 && c.IsEnabled == true
                                  select c).FirstOrDefault();
                 return cust;
             }
@@ -50,10 +51,23 @@ namespace AppointmentSlots.Api.Controllers
                     cust.FirstName = request.FirstName;
 
                 if (!string.IsNullOrEmpty(request.LastName))
-                    cust.LastName = cust.LastName;
+                    cust.LastName = request.LastName;
 
                 if (!string.IsNullOrEmpty(request.Phone))
-                    cust.Phone = cust.Phone;
+                    cust.Phone = request.Phone;
+
+                if (!string.IsNullOrEmpty(request.UserName))
+                    cust.UserName = request.UserName;
+
+                if (!string.IsNullOrEmpty(request.Password))
+                    cust.Password = request.Password;
+
+                cust.IsEnabled = request.IsEnabled;
+
+                var myTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                var currentDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, myTimeZone);
+
+                cust.LastModified = currentDateTime;
 
                 if (cust.CustId == 0)
                 {

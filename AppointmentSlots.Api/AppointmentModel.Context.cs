@@ -31,9 +31,9 @@ namespace AppointmentSlots.Api
         public virtual DbSet<Availability> Availabilities { get; set; }
         public virtual DbSet<ExceptionDate> ExceptionDates { get; set; }
         public virtual DbSet<Slot> Slots { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
     
         public virtual ObjectResult<usp_GetAppointmentsByDay_Result> usp_GetAppointmentsByDay(Nullable<System.DateTime> appointmentsDate)
         {

@@ -54,7 +54,6 @@
     <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(ApptModel.usp_GetApptTypes_Result)" />
     <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(ApptModel.usp_GetAvailability_Result)" />
     <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(ApptModel.usp_GetExceptionTimes_Result)" />
-    <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
     <EntitySet Name="database_firewall_rules" EntityType="ApptModel.database_firewall_rules" />
     <EntitySet Name="Appointments" EntityType="ApptModel.Appointment" />
     <FunctionImport Name="GetTimeSlots" IsComposable="true" ReturnType="Collection(ApptModel.GetTimeSlots_Result)">
@@ -69,6 +68,7 @@
       <Parameter Name="EndTime" Mode="In" Type="Time" />
       <Parameter Name="Duration" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
   </EntityContainer>
   <ComplexType Name="usp_GetAppointmentsByDay_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />
@@ -99,21 +99,6 @@
     <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
     <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
   </ComplexType>
-  <EntityType Name="Customer">
-    <Key>
-      <PropertyRef Name="CustId" />
-    </Key>
-    <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastModified" Type="DateTime" Precision="3" />
-    <Property Name="IsRegistered" Type="Boolean" />
-    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="database_firewall_rules">
     <Key>
       <PropertyRef Name="id" />
@@ -149,4 +134,19 @@
     <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
   </ComplexType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustId" />
+    </Key>
+    <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastModified" Type="DateTime" Precision="3" />
+    <Property Name="IsEnabled" Type="Boolean" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

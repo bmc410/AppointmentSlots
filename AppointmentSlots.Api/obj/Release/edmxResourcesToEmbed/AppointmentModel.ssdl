@@ -40,7 +40,7 @@
     <Property Name="Email" Type="varchar" MaxLength="150" />
     <Property Name="Phone" Type="varchar" MaxLength="50" />
     <Property Name="LastModified" Type="datetime" />
-    <Property Name="IsRegistered" Type="bit" />
+    <Property Name="IsEnabled" Type="bit" />
     <Property Name="UserName" Type="varchar" MaxLength="50" />
     <Property Name="Password" Type="varchar" MaxLength="50" />
     <Property Name="PIN" Type="varchar" MaxLength="10" />

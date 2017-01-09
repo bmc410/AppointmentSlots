@@ -91,22 +91,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="ApptModel.Customer">
-        <MappingFragment StoreEntitySet="Customers">
-          <ScalarProperty Name="PIN" ColumnName="PIN" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
-          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="CustId" ColumnName="CustId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="database_firewall_rules">
       <EntityTypeMapping TypeName="ApptModel.database_firewall_rules">
         <MappingFragment StoreEntitySet="database_firewall_rules">
@@ -147,5 +131,21 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="ApptModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="PIN" ColumnName="PIN" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CustId" ColumnName="CustId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

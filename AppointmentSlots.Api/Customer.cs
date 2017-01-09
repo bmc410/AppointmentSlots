@@ -20,7 +20,7 @@ namespace AppointmentSlots.Api
         public string Email { get; set; }
         public string Phone { get; set; }
         public Nullable<System.DateTime> LastModified { get; set; }
-        public Nullable<bool> IsRegistered { get; set; }
+        public Nullable<bool> IsEnabled { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string PIN { get; set; }

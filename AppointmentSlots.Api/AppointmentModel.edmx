@@ -45,7 +45,7 @@
           <Property Name="Email" Type="varchar" MaxLength="150" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
           <Property Name="LastModified" Type="datetime" />
-          <Property Name="IsRegistered" Type="bit" />
+          <Property Name="IsEnabled" Type="bit" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="PIN" Type="varchar" MaxLength="10" />
@@ -194,7 +194,6 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
           <FunctionImport Name="usp_GetApptTypes" ReturnType="Collection(ApptModel.usp_GetApptTypes_Result)" />
           <FunctionImport Name="usp_GetAvailability" ReturnType="Collection(ApptModel.usp_GetAvailability_Result)" />
           <FunctionImport Name="usp_GetExceptionTimes" ReturnType="Collection(ApptModel.usp_GetExceptionTimes_Result)" />
-          <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
           <EntitySet Name="database_firewall_rules" EntityType="ApptModel.database_firewall_rules" />
           <EntitySet Name="Appointments" EntityType="ApptModel.Appointment" />
           <FunctionImport Name="GetTimeSlots" IsComposable="true" ReturnType="Collection(ApptModel.GetTimeSlots_Result)">
@@ -209,6 +208,7 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
             <Parameter Name="EndTime" Mode="In" Type="Time" />
             <Parameter Name="Duration" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
         </EntityContainer>
         <ComplexType Name="usp_GetAppointmentsByDay_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -239,21 +239,6 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
           <Property Type="DateTime" Name="ExceptionEndDate" Nullable="true" Precision="23" />
           <Property Type="Boolean" Name="IsRecurring" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="CustId" />
-          </Key>
-          <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastModified" Type="DateTime" Precision="3" />
-          <Property Name="IsRegistered" Type="Boolean" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -289,6 +274,21 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
           <Property Type="DateTime" Name="StartDate" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustId" />
+          </Key>
+          <Property Name="CustId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastModified" Type="DateTime" Precision="3" />
+          <Property Name="IsEnabled" Type="Boolean" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -385,22 +385,6 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="ApptModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="PIN" ColumnName="PIN" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
-                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="CustId" ColumnName="CustId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="database_firewall_rules">
             <EntityTypeMapping TypeName="ApptModel.database_firewall_rules">
               <MappingFragment StoreEntitySet="database_firewall_rules">
@@ -441,6 +425,22 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ApptModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CustId" ColumnName="CustId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
