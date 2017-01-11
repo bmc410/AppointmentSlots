@@ -69,6 +69,29 @@
       <Parameter Name="Duration" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
+    <FunctionImport Name="fn_recurringDates" IsComposable="true" ReturnType="Collection(DateTime)">
+      <Parameter Name="wkDayPattern" Mode="In" Type="Byte" />
+      <Parameter Name="dayFrequency" Mode="In" Type="Byte" />
+      <Parameter Name="exactDay" Mode="In" Type="Byte" />
+      <Parameter Name="occurrenceNo" Mode="In" Type="Byte" />
+      <Parameter Name="occurrenceType" Mode="In" Type="Byte" />
+      <Parameter Name="weekFrequency" Mode="In" Type="Byte" />
+      <Parameter Name="exactWeek" Mode="In" Type="Byte" />
+      <Parameter Name="monPattern" Mode="In" Type="Int16" />
+      <Parameter Name="monFrequency" Mode="In" Type="Byte" />
+      <Parameter Name="yearFrequency" Mode="In" Type="Byte" />
+      <Parameter Name="start" Mode="In" Type="DateTime" />
+      <Parameter Name="end" Mode="In" Type="DateTime" />
+      <Parameter Name="occurrences" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_GetRecurringDates" ReturnType="Collection(DateTime)">
+      <Parameter Name="dayOfWeek" Mode="In" Type="Int32" />
+      <Parameter Name="dayFrequency" Mode="In" Type="Int32" />
+      <Parameter Name="weekFrequency" Mode="In" Type="Int32" />
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+      <Parameter Name="endDate" Mode="In" Type="DateTime" />
+      <Parameter Name="currentDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="usp_GetAppointmentsByDay_Result">
     <Property Type="Int32" Name="Id" Nullable="false" />

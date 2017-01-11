@@ -122,5 +122,92 @@ namespace AppointmentSlots.Api
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSlotsForDates_Result>("usp_GetSlotsForDates", startDateParameter, endDateParameter, startTimeParameter, endTimeParameter, durationParameter);
         }
+    
+        [DbFunction("ApptEntities", "fn_recurringDates")]
+        public virtual IQueryable<Nullable<System.DateTime>> fn_recurringDates(Nullable<byte> wkDayPattern, Nullable<byte> dayFrequency, Nullable<byte> exactDay, Nullable<byte> occurrenceNo, Nullable<byte> occurrenceType, Nullable<byte> weekFrequency, Nullable<byte> exactWeek, Nullable<short> monPattern, Nullable<byte> monFrequency, Nullable<byte> yearFrequency, Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> occurrences)
+        {
+            var wkDayPatternParameter = wkDayPattern.HasValue ?
+                new ObjectParameter("wkDayPattern", wkDayPattern) :
+                new ObjectParameter("wkDayPattern", typeof(byte));
+    
+            var dayFrequencyParameter = dayFrequency.HasValue ?
+                new ObjectParameter("dayFrequency", dayFrequency) :
+                new ObjectParameter("dayFrequency", typeof(byte));
+    
+            var exactDayParameter = exactDay.HasValue ?
+                new ObjectParameter("exactDay", exactDay) :
+                new ObjectParameter("exactDay", typeof(byte));
+    
+            var occurrenceNoParameter = occurrenceNo.HasValue ?
+                new ObjectParameter("occurrenceNo", occurrenceNo) :
+                new ObjectParameter("occurrenceNo", typeof(byte));
+    
+            var occurrenceTypeParameter = occurrenceType.HasValue ?
+                new ObjectParameter("occurrenceType", occurrenceType) :
+                new ObjectParameter("occurrenceType", typeof(byte));
+    
+            var weekFrequencyParameter = weekFrequency.HasValue ?
+                new ObjectParameter("weekFrequency", weekFrequency) :
+                new ObjectParameter("weekFrequency", typeof(byte));
+    
+            var exactWeekParameter = exactWeek.HasValue ?
+                new ObjectParameter("exactWeek", exactWeek) :
+                new ObjectParameter("exactWeek", typeof(byte));
+    
+            var monPatternParameter = monPattern.HasValue ?
+                new ObjectParameter("monPattern", monPattern) :
+                new ObjectParameter("monPattern", typeof(short));
+    
+            var monFrequencyParameter = monFrequency.HasValue ?
+                new ObjectParameter("monFrequency", monFrequency) :
+                new ObjectParameter("monFrequency", typeof(byte));
+    
+            var yearFrequencyParameter = yearFrequency.HasValue ?
+                new ObjectParameter("yearFrequency", yearFrequency) :
+                new ObjectParameter("yearFrequency", typeof(byte));
+    
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var occurrencesParameter = occurrences.HasValue ?
+                new ObjectParameter("occurrences", occurrences) :
+                new ObjectParameter("occurrences", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Nullable<System.DateTime>>("[ApptEntities].[fn_recurringDates](@wkDayPattern, @dayFrequency, @exactDay, @occurrenceNo, @occurrenceType, @weekFrequency, @exactWeek, @monPattern, @monFrequency, @yearFrequency, @start, @end, @occurrences)", wkDayPatternParameter, dayFrequencyParameter, exactDayParameter, occurrenceNoParameter, occurrenceTypeParameter, weekFrequencyParameter, exactWeekParameter, monPatternParameter, monFrequencyParameter, yearFrequencyParameter, startParameter, endParameter, occurrencesParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> usp_GetRecurringDates(Nullable<int> dayOfWeek, Nullable<int> dayFrequency, Nullable<int> weekFrequency, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<System.DateTime> currentDate)
+        {
+            var dayOfWeekParameter = dayOfWeek.HasValue ?
+                new ObjectParameter("dayOfWeek", dayOfWeek) :
+                new ObjectParameter("dayOfWeek", typeof(int));
+    
+            var dayFrequencyParameter = dayFrequency.HasValue ?
+                new ObjectParameter("dayFrequency", dayFrequency) :
+                new ObjectParameter("dayFrequency", typeof(int));
+    
+            var weekFrequencyParameter = weekFrequency.HasValue ?
+                new ObjectParameter("weekFrequency", weekFrequency) :
+                new ObjectParameter("weekFrequency", typeof(int));
+    
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("startDate", startDate) :
+                new ObjectParameter("startDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var currentDateParameter = currentDate.HasValue ?
+                new ObjectParameter("currentDate", currentDate) :
+                new ObjectParameter("currentDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("usp_GetRecurringDates", dayOfWeekParameter, dayFrequencyParameter, weekFrequencyParameter, startDateParameter, endDateParameter, currentDateParameter);
+        }
     }
 }

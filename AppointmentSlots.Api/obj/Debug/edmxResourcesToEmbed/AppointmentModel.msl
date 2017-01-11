@@ -147,5 +147,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="fn_recurringDates" FunctionName="ApptModel.Store.fn_recurringDates" />
+    <FunctionImportMapping FunctionImportName="usp_GetRecurringDates" FunctionName="ApptModel.Store.usp_GetRecurringDates" />
   </EntityContainerMapping>
 </Mapping>

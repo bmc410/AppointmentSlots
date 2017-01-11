@@ -26,6 +26,23 @@ namespace AppointmentSlots.Api.Controllers
 
         }
 
+        [HttpPost]
+        public List<DateTime> GetRecurringSlots(RecurringApptRequest request)
+        {
+            List<DateTime> resultDates = new List<DateTime>();
+            using (ApptEntities db = new ApptEntities())
+            {
+                return (from d in db.usp_GetRecurringDates(request.dayOfWeek,
+                    request.dayFrequency,
+                     request.weekFrequency,
+                     request.startDate,
+                     request.endDate,
+                     request.currentDate)
+                         select d.Value).ToList();
+            }
+        }
+
+
         [HttpGet]
         public void DeleteAppointmentsByApptId(int apptId)
         {

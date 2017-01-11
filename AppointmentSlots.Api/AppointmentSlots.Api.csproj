@@ -259,6 +259,7 @@
     <Compile Include="Models\GetSlotsRequest.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginRequest.cs" />
+    <Compile Include="Models\RecurringApptRequest.cs" />
     <Compile Include="Models\ScheduleAppointmentResponse.cs" />
     <Compile Include="Models\SlotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

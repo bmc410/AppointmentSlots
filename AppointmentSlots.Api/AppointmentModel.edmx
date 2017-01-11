@@ -86,6 +86,28 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
+        <Function Name="fn_recurringDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="wkDayPattern" Type="tinyint" Mode="In" />
+          <Parameter Name="dayFrequency" Type="tinyint" Mode="In" />
+          <Parameter Name="exactDay" Type="tinyint" Mode="In" />
+          <Parameter Name="occurrenceNo" Type="tinyint" Mode="In" />
+          <Parameter Name="occurrenceType" Type="tinyint" Mode="In" />
+          <Parameter Name="weekFrequency" Type="tinyint" Mode="In" />
+          <Parameter Name="exactWeek" Type="tinyint" Mode="In" />
+          <Parameter Name="monPattern" Type="smallint" Mode="In" />
+          <Parameter Name="monFrequency" Type="tinyint" Mode="In" />
+          <Parameter Name="yearFrequency" Type="tinyint" Mode="In" />
+          <Parameter Name="start" Type="datetime" Mode="In" />
+          <Parameter Name="end" Type="datetime" Mode="In" />
+          <Parameter Name="occurrences" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="date" Type="datetime" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="GetTimeSlots" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="starttime" Type="datetime" Mode="In" />
           <Parameter Name="endtime" Type="datetime" Mode="In" />
@@ -111,6 +133,14 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
         <Function Name="usp_GetApptTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetAvailability" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetExceptionTimes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetRecurringDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dayOfWeek" Type="int" Mode="In" />
+          <Parameter Name="dayFrequency" Type="int" Mode="In" />
+          <Parameter Name="weekFrequency" Type="int" Mode="In" />
+          <Parameter Name="startDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="currentDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="usp_GetSlotsForDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
@@ -209,6 +239,29 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
             <Parameter Name="Duration" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Customers" EntityType="ApptModel.Customer" />
+          <FunctionImport Name="fn_recurringDates" IsComposable="true" ReturnType="Collection(DateTime)">
+            <Parameter Name="wkDayPattern" Mode="In" Type="Byte" />
+            <Parameter Name="dayFrequency" Mode="In" Type="Byte" />
+            <Parameter Name="exactDay" Mode="In" Type="Byte" />
+            <Parameter Name="occurrenceNo" Mode="In" Type="Byte" />
+            <Parameter Name="occurrenceType" Mode="In" Type="Byte" />
+            <Parameter Name="weekFrequency" Mode="In" Type="Byte" />
+            <Parameter Name="exactWeek" Mode="In" Type="Byte" />
+            <Parameter Name="monPattern" Mode="In" Type="Int16" />
+            <Parameter Name="monFrequency" Mode="In" Type="Byte" />
+            <Parameter Name="yearFrequency" Mode="In" Type="Byte" />
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="occurrences" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetRecurringDates" ReturnType="Collection(DateTime)">
+            <Parameter Name="dayOfWeek" Mode="In" Type="Int32" />
+            <Parameter Name="dayFrequency" Mode="In" Type="Int32" />
+            <Parameter Name="weekFrequency" Mode="In" Type="Int32" />
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="currentDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_GetAppointmentsByDay_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -441,6 +494,8 @@ warning 6002: The table/view 'BMC_DATA.sys.database_firewall_rules' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_recurringDates" FunctionName="ApptModel.Store.fn_recurringDates" />
+          <FunctionImportMapping FunctionImportName="usp_GetRecurringDates" FunctionName="ApptModel.Store.usp_GetRecurringDates" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
